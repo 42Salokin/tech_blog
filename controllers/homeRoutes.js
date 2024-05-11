@@ -1,15 +1,34 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, Post } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', withAuth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
+    // Fetch user data along with their associated posts
     const userData = await User.findAll({
-      attributes: { exclude: ['password'] },
-      order: [['name', 'ASC']],
+      attributes: ['id', 'username'], // Only select necessary attributes
+      order: [['username', 'ASC']],
+      include: [
+        {
+          model: Post, // Include the Post model
+          // attributes: ['id', 'title', 'body'], // Only select necessary attributes
+          // where: { userId: Sequelize.col('user.id') } // Filter posts by user ID
+        }
+      ]
     });
 
-    const users = userData.map((project) => project.get({ plain: true }));
+    // Convert Sequelize instances to plain objects
+    const users = userData.map((user) => {
+      const userDataPlain = user.get({ plain: true });
+      const posts = user.posts.map((post) => post.get({ plain: true }));
+      return {
+          ...userDataPlain,
+          posts,
+      };
+  });
+  
+  console.log(JSON.stringify(users, null, 2));
+  
 
     res.render('homepage', {
       users,
@@ -19,6 +38,7 @@ router.get('/', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
