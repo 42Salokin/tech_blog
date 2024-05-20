@@ -4,22 +4,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Registry</title>
+  <title>Tech Blog</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="/css/jass.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-  <header class="display-flex justify-space-between align-center p-2">
-    <h1>Tech Blog</h1>
-    {{#if logged_in}}
+  <header>
     <nav>
-      <button class="btn" id="logout">logout</button>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Tech Blog</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/">Home</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
     </nav>
-    {{else}}
-    <nav>
-      <button class="btn" id="login">login</button>
-    </nav>
-    {{/if}}
   </header>
   <main class="container container-fluid mt-5">
     {{{ body }}}
@@ -31,6 +34,7 @@
   {{#if logged_in}}
   <script src="/js/logout.js"></script>
   {{/if}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>
