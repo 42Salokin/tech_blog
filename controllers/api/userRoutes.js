@@ -7,11 +7,10 @@ router.post('/signup', async (req, res) => {
     const signupuser = await User.create(req.body)
     console.log(signupuser)
     req.session.save(() => {
-      req.session.user_id = signupuser.id
-      req.session.name = signupuser.username
-      req.session.logged_in = true
-    })
-    res.status(200).json(signupuser)
+      req.session.user_id = signupuser.id;
+      req.session.logged_in = true;
+      res.status(200).json(signupuser)
+    });
   } catch (err) {
     console.error(err)
     res.status(500).json(err)
