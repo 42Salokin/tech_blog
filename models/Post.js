@@ -1,5 +1,3 @@
-// Post.js
-
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
@@ -29,6 +27,11 @@ Post.init(
         model: 'user', // Name of the referenced model
         key: 'id',     // Primary key in the referenced model
       },
+    },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW, // This sets the default value to the current timestamp
     },
   },
   {

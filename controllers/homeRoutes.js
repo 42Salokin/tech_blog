@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { User, Post } = require('../models');
 const withAuth = require('../utils/auth');
+const { formatDate } = require('../utils/helpers');
+
 
 router.get('/', async (req, res) => {
   try {
@@ -11,21 +13,25 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: Post, // Include the Post model
-          // attributes: ['id', 'title', 'body'], // Only select necessary attributes
+          attributes: ['id', 'title', 'body', 'date'], // Only select necessary attributes
           // where: { userId: Sequelize.col('user.id') } // Filter posts by user ID
         }
       ]
     });
 
-    // Convert Sequelize instances to plain objects
+    // Convert Sequelize instances to plain objects and format dates
     const users = userData.map((user) => {
       const userDataPlain = user.get({ plain: true });
-      const posts = user.posts.map((post) => post.get({ plain: true }));
+      const posts = user.posts.map((post) => {
+        const postPlain = post.get({ plain: true });
+        postPlain.date = formatDate(new Date(postPlain.date));
+        return postPlain;
+      });
       return {
-          ...userDataPlain,
-          posts,
+        ...userDataPlain,
+        posts,
       };
-  });
+    });
   
   console.log(JSON.stringify(users, null, 2));
   

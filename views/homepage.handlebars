@@ -1,15 +1,16 @@
 {{#each users as |user| }}
-<div class="row align-center mb-5">
-  <div class="col-md-6">
-    <h2>{{user.username}}</h2>
-  </div>
+<div class="row mb-5">
   <div class="col-md-6">
     {{#each user.posts as |post| }}
-    <h3>{{post.title}}</h3>
-    <p>{{post.body}}</p>
+    <div class="post">
+      <h2>{{post.title}}</h2>
+      <h5>Created by {{user.username}} on {{post.date}}</h5>
+      <p>{{post.body}}</p>
+    </div>
     {{/each}}
   </div>
 </div>
 {{/each}}
+
 
 

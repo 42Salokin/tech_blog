@@ -24,6 +24,35 @@ main {
     min-height: 80vh;
 }
 
+.row {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+  }
+  
+  .col-md-6 {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content within the column */
+  }
+  
+  .post {
+    width: 100%; /* Ensure posts take up the full width of the column */
+    margin-bottom: 20px; /* Add some space between posts */
+  }
+  
+  h2, h5, p {
+    text-align: center; /* Center text within each post */
+  }
+  
+  /* Optional: Add some styling for better visual separation */
+  .post {
+    padding: 20px;
+    background-color: black;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+
 #uLabel, #pLabel, #sLabel {
     color: #39ff14;
     font-family: 'Roboto', sans-serif;
