@@ -15,7 +15,6 @@ const signupFormHandler = async (event) => {
             body: JSON.stringify({ username, password }),
             headers: { 'Content-Type': 'application/json' },
         });
-        console.log(response)
         //Waits for the response from the API and checks if the status code indicates success (usually in the 200-299 range).
         if (response.ok) {
             //Redirects the user to the /profile page after successful signup.
