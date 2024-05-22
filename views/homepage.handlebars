@@ -2,7 +2,7 @@
 <div class="row mb-5">
   <div class="col s12 m10 offset-m1">
     {{#each user.posts as |post| }}
-    <div class="post">
+    <div class="post" data-post-id="{{post.id}}">
       <h2>{{post.title}}</h2>
       <h5>Created by {{user.username}} on {{post.date}}</h5>
       <p>{{post.body}}</p>
@@ -11,6 +11,8 @@
   </div>
 </div>
 {{/each}}
+
+<script src="/js/comment.js"></script>
 
 
 
