@@ -11,14 +11,31 @@ Comment.init(
         primaryKey: true,
         autoIncrement: true,
       },
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       body: {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW, // This sets the default value to the current timestamp
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'user', // Name of the referenced model
+          key: 'id',     // Primary key in the referenced model
+        },
+      },
+      postId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'post', // Name of the referenced model
+          key: 'id',     // Primary key in the referenced model
+        },
+      },      
     },
     {
       sequelize,
