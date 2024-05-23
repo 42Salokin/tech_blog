@@ -11,28 +11,41 @@ router.get('/:id', async (req, res) => {
         
         // Query the database to find the post by its ID using the Post model
         const postData = await Post.findByPk(id, {
-          include: [{
+          include: [
+            {
             model: User,
             attributes: ['username'],
+          },
+          {
+            model: Comment,
+                    include: [{
+                        model: User,
+                        attributes: ['username'],
+                    }]
           }]
         });
         
         // If the post is found, send it as a JSON response
         if (postData) {
           // console.log(postData);
-          // console.log(postData.dataValues.user.dataValues.username);
+          // console.log(postData.dataValues.comments[0].dataValues);
           const post = {
             id: postData.dataValues.id,
             title: postData.dataValues.title,
             username: postData.dataValues.user.dataValues.username,
             date: formatDate(postData.dataValues.date),
             body: postData.dataValues.body,
+            comments: postData.comments.map(comment => ({
+              id: comment.dataValues.id,
+              body: comment.dataValues.body,
+              date: formatDate(comment.dataValues.date),
+              username: comment.dataValues.user.dataValues.username
+          }))
           }
-          console.log(req.session);
+          // res.status(200).json(post);
          res.render('post', {
             post,
             logged_in: req.session.logged_in,
-            // user_id: req.session.user_id,
         }) 
         } else {
           // If the post is not found, send a 404 Not Found status
