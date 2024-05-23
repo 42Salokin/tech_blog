@@ -54,12 +54,12 @@ main {
   }
   
 
-#uLabel, #pLabel, #sLabel {
+#uLabel, #pLabel, #sLabel, #comment, #comment-text {
     color: #39ff14;
     font-family: 'Roboto', sans-serif;
 }
 
-#login-btn, #signup-btn {
+#login-btn, #signup-btn, #comment-btn {
     background-color: black;
     color: #39ff14;
     font-family: 'Roboto', sans-serif;

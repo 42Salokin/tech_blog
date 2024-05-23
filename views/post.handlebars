@@ -5,6 +5,16 @@
       {{!-- <h5>Created on {{post.date}}</h5> --}}
       <h5>Created by {{post.username}} on {{post.date}}</h5>
       <p>{{post.body}}</p>
+      <a href="#" id="comment">Leave Comment</a>
+      <form class="form comment-form">
+        <div class="form-group">
+          <input class="form-input" type="text" id="comment-text" placeholder="comment">
+        </div>
+        <div class="form-container">
+          <button class="btn btn-primary" id="comment-btn" type="submit">Enter</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+<script src="/js/comment.js"></script>

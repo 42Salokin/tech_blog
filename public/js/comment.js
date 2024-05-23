@@ -1,29 +1,32 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const postDivs = document.querySelectorAll('.post');
-    
-    postDivs.forEach(postDiv => {
-        postDiv.addEventListener("click", (event) => {
-            event.preventDefault(); // Prevent the default behavior of following the link
-            const parentElement = event.target.closest('.post'); 
-            const postId = parentElement.dataset.postId; 
-            console.log(postId);
-            document.location.replace(`/post/${postId}`);
+document.addEventListener("DOMContentLoaded", function() {
+    const commentForm = document.querySelector(".comment-form");
+    const leaveComment = document.getElementById("comment");
 
-            // try {
-            //     const response = await fetch(`/api/post/${postId}`, {
-            //         method: 'GET',
-            //         headers: { 'Content-Type': 'application/json' },
-            //     });
-            //     // if (response.ok) {
-            //     //     console.log(response);
-            //     //     // document.location.replace('/post');
-            //     // } else {
-            //     //     console.error('Failed to load post:', response.statusText);
-            //     // }
-            // } catch (error) {
-            //     console.error('Error loading post:', error);
-            // }
-        });
-    });
-});
+    if (leaveComment) {
+      commentForm.style.display = "none";
+
+      leaveComment.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent default link behavior
+        leaveComment.style.display = "none";
+        commentForm.style.display = "block";
+      });
+    }
+
+    if (commentForm) {
+      commentForm.addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+        // You can handle the form data here, for example:
+        const commentText = document.getElementById("comment-text").value;
+        // const username = req.session.username;
+        const date = new Date().toISOString();
+
+        console.log(commentText); 
+        // console.log(username);
+        console.log(date);
+
+        commentForm.style.display = "none";
+        leaveComment.style.display = "block";
+      });
+    }
+  });
 
