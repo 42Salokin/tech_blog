@@ -6,18 +6,18 @@ router.post('/newPost', async (req, res) => {
     console.log(req.session.user_id);
 
     try {
-        const newComment = await Post.create({
+        const newPost = await Post.create({
             title: req.body.title,
             date: req.body.date,
             userId: req.session.user_id,
             body: req.body.content
         });
-      console.log(newComment)
+      console.log(newPost)
     //   req.session.save(() => {
     //     req.session.user_id = signupuser.id;
     //     req.session.logged_in = true;
-    //     res.status(200).json(signupuser)
     //   });
+        res.status(200).json(newPost)
     } catch (err) {
       console.error(err)
       res.status(500).json(err)
