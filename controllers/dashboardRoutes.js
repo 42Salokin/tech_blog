@@ -44,52 +44,25 @@ const { formatDate } = require('../utils/helpers');
     const deleteId = req.params.postId;
     console.log(deleteId);
 
-    // try {
-    //     // Find the team with the specified name or containing the specified Pokemon
-    //     const team = await Team.findOne({
-    //         where: {
-    //             [Op.or]: [
-    //                 { name: deleteName },
-    //                 { pokemon1: deleteName },
-    //                 { pokemon2: deleteName },
-    //                 { pokemon3: deleteName },
-    //                 { pokemon4: deleteName },
-    //                 { pokemon5: deleteName },
-    //                 { pokemon6: deleteName }
-    //             ]
-    //         }
-    //     });
+    try {
+        const post = await Post.findOne({
+            where: { id: deleteId }
+        });
 
-    //     if (!team) {
-    //         console.log(`No team or Pokemon found with name ${deleteName}.`);
-    //         return res.status(404).json({ message: `No team or Pokemon found with name ${deleteName}.` });
-    //     }
-    //     // console.log(team);
-    //     // Remove the Pokemon from the team
-    //     if (team.name === deleteName) {
-    //         // Remove the entire team if the name matches
-    //         await team.destroy();
-    //         console.log(`Team ${deleteName} deleted successfully.`);
-    //         res.status(200).json({ message: `Team ${deleteName} deleted successfully.` });
-    //         // return res.redirect('/api/team');
-    //         // res.render('team');
-    //     } else {
-    //         // Otherwise, remove the Pokemon from the team
-    //         const columns = ['pokemon1', 'pokemon2', 'pokemon3', 'pokemon4', 'pokemon5', 'pokemon6'];
-    //         for (const column of columns) {
-    //             if (team[column] === deleteName) {
-    //                 team[column] = '';
-    //             }
-    //         }
-    //         await team.save();
-    //         console.log(`Pokemon ${deleteName} removed from team.`);
-    //         res.status(200).json({ message: `Pokemon ${deleteName} removed from team.` });
-    //         // res.redirect('/api/team');
-    //         // res.render('team');
-    //     }
-    // } catch (error) {
-    //     console.error('Error deleting Pokemon from team:', error);
-    //     return res.status(500).json({ message: 'Failed to delete Pokemon from team.' });
-    // }
+        if (!post) {
+            console.log(`No post found with ID ${deleteId}.`);
+            return res.status(404).json({ message: `No post found with ID ${deleteId}.` });
+        }
+        
+        
+            await post.destroy();
+            console.log(`Post ${deleteId} deleted successfully.`);
+            res.status(200).json({ message: `Post ${deleteId} deleted successfully.` });
+        
+    } catch (error) {
+        console.error('Error deleting post', error);
+        return res.status(500).json({ message: 'Failed to delete post' });
+    }
 });
+
   module.exports = router;

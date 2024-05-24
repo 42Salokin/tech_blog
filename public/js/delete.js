@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         document.location.replace('/dashboard');
                         console.log(response);
                     } else {
-                        console.error('Failed to delete Pokemon:', response);
+                        console.error('Failed to delete post', response);
                     }
                 } catch (error) {
-                    console.error('Error deleting team:', error);
+                    console.error('Error deleting post', error);
                 }
             });
         });
