@@ -44,8 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
           const result = await response.json();
           console.log('Comment added:', result);
           // Optionally handle success, e.g., clear the form, hide the form, show a success message, etc.
-          commentForm.style.display = "none";
-          leaveComment.style.display = "block";
+          // commentForm.style.display = "none";
+          // leaveComment.style.display = "block";
+          document.location.replace(`/post/${result.postId}`);
         } else {
           console.error('Failed to add comment');
         }
