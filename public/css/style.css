@@ -11,7 +11,7 @@ nav {
 }
 
 body {
-    background: linear-gradient(to bottom, #d3d3d3, #000);
+    background: linear-gradient(to bottom, #1d1d1d, #d3d3d3, #000);
     color: #39ff14;
     font-family: 'Roboto', sans-serif;
 }
@@ -45,7 +45,7 @@ main {
   }
   
   /* Optional: Add some styling for better visual separation */
-  .post {
+  .post, .login-form, .signup-form {
     padding: 20px;
     background-color: black;
     border-radius: 5px;
@@ -55,12 +55,12 @@ main {
   
 
 #uLabel, #pLabel, #sLabel, #comment, #comment-text, 
-#title-text, #content-text, #create_post {
+#title-text, #content-text, #create_post, #editPost {
     color: #39ff14;
     font-family: 'Roboto', sans-serif;
 }
 
-#login-btn, #signup-btn, #comment-btn, #newPost-btn {
+#login-btn, #signup-btn, #comment-btn, #newPost-btn, #delete-btn {
     background-color: black;
     color: #39ff14;
     font-family: 'Roboto', sans-serif;
