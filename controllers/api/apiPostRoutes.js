@@ -24,6 +24,29 @@ router.post('/newPost', async (req, res) => {
     }
   });
 
+  router.put('/:postId', async (req, res) => {
+    const { postId } = req.params;
+    const { title, content } = req.body;
+  
+    try {
+      const post = await Post.findOne({ where: { id: postId } });
+  
+      if (!post) {
+        return res.status(404).json({ message: `No post found with ID ${postId}.` });
+      }
+  
+      post.title = title;
+      post.body = content;
+      await post.save();
+  
+      res.status(200).json({ message: `Post ${postId} updated successfully.` });
+    } catch (error) {
+      console.error('Error updating post:', error);
+      res.status(500).json({ message: 'Failed to update post', error: error.message });
+    }
+  });
+  
+
   
 
   module.exports = router;

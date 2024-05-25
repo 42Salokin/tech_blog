@@ -1,6 +1,6 @@
-<div class="row mb-5">
+{{#if user.posts.length}}
+<div class="row mb-5 post-column">
     <h2>Your Dashboard</h2>
-    {{#if user}}
     {{#each user.posts as |post| }}
     <div class="col s12 m10 offset-m1">
         <div class="post" data-post-id="{{post.id}}">
@@ -14,7 +14,20 @@
         </div>
     </div>
     {{/each}}
-    {{/if}}
-    <a href="/newPost" id="create_post">Create New Post</a>
+    <div>
+        <a href="/newPost" id="create_post">Create New Post</a>
+    </div>
 </div>
+    {{else}}
+  <div class="mb-5">
+    <div class="col s12 m10 offset-m1">
+        <div class="post">
+            <h2>Your Dashboard</h2>
+            <p>No posts to display. Create your first post!</p>
+            <a href="/newPost" id="create_post">Create New Post</a>
+        </div>
+    </div>
+  </div>          
+{{/if}}
 <script src="/js/delete.js"></script>
+

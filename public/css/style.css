@@ -35,7 +35,7 @@ main {
     align-items: center; /* Center content within the column */
   }
   
-  .post {
+  .post-column {
     width: 100%; /* Ensure posts take up the full width of the column */
     margin-bottom: 20px; /* Add some space between posts */
   }
@@ -45,7 +45,9 @@ main {
   }
   
   /* Optional: Add some styling for better visual separation */
-  .post, .login-form, .signup-form {
+  .post, .login-form, .signup-form, .editPost-form, .newPost-form {
+    width: 80%;
+    margin-bottom: 20px;
     padding: 20px;
     background-color: black;
     border-radius: 5px;
@@ -60,7 +62,8 @@ main {
     font-family: 'Roboto', sans-serif;
 }
 
-#login-btn, #signup-btn, #comment-btn, #newPost-btn, #delete-btn {
+#login-btn, #signup-btn, #comment-btn, #newPost-btn, 
+#delete-btn, #editPost-btn {
     background-color: black;
     color: #39ff14;
     font-family: 'Roboto', sans-serif;
