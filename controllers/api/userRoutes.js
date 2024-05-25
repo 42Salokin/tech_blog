@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+// Receives new user data from signup page and stores it in db,
+// logs user in
 router.post('/signup', async (req, res) => {
   console.log(req.body)
   try {
@@ -17,6 +19,8 @@ router.post('/signup', async (req, res) => {
   }
 })
 
+// Receives user data from login page, checks to make sure data matches user in db,
+// logs user in
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { username: req.body.username } });
@@ -49,6 +53,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Receives logout request from logout button, deletes current login session
 router.post('/logout', (req, res) => {
 console.log(req.session.logged_in);
   if (req.session.logged_in) {

@@ -1,3 +1,4 @@
+// Sends logout request to controller, ends user's session, loads login page
 const logout = async () => {
     const response = await fetch('/api/user/logout', {
       method: 'POST',

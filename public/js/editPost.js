@@ -1,3 +1,4 @@
+// Takes input from post edit and sends PUT request to controller to update post in db
 const editPostHandler = async (event) => {
     event.preventDefault();
   

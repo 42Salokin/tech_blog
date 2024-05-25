@@ -3,16 +3,16 @@ const { User, Post } = require('../models');
 const withAuth = require('../utils/auth');
 const { formatDate } = require('../utils/helpers');
 
+//On dashboard load, gets all user's posts and sends them to the view
   router.get('/', withAuth, async (req, res) => {
     try {
-      // Fetch user data along with their associated posts
+      // Fetches user data along with their associated posts
       const id = req.session.user_id;
       const userData = await User.findByPk(id, {
         include: [
           {
-            model: Post, // Include the Post model
-            attributes: ['id', 'title', 'body', 'date'], // Only select necessary attributes
-            // where: { userId: Sequelize.col('user.id') } // Filter posts by user ID
+            model: Post, 
+            attributes: ['id', 'title', 'body', 'date'], 
           }
         ]
       });
@@ -40,6 +40,7 @@ const { formatDate } = require('../utils/helpers');
     }
   });
 
+  // Receives delete request with post's id, finds post in db and deletes it
   router.delete('/:postId', async (req, res) => {
     const deleteId = req.params.postId;
     console.log(deleteId);

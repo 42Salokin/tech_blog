@@ -3,23 +3,20 @@ const { User, Post } = require('../models');
 const withAuth = require('../utils/auth');
 const { formatDate } = require('../utils/helpers');
 
-
+// On homepage load, finds all users and their associated posts and sends them to the view
 router.get('/', async (req, res) => {
   try {
-    // Fetch user data along with their associated posts
     const userData = await User.findAll({
-      attributes: ['id', 'username'], // Only select necessary attributes
+      attributes: ['id', 'username'], 
       order: [['username', 'ASC']],
       include: [
         {
-          model: Post, // Include the Post model
-          attributes: ['id', 'title', 'body', 'date'], // Only select necessary attributes
-          // where: { userId: Sequelize.col('user.id') } // Filter posts by user ID
+          model: Post, 
+          attributes: ['id', 'title', 'body', 'date'], 
         }
       ]
     });
 
-    // Convert Sequelize instances to plain objects and format dates
     const users = userData.map((user) => {
       const userDataPlain = user.get({ plain: true });
       const posts = user.posts.map((post) => {
@@ -45,7 +42,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-
+// If login is selected but user is already signed in, redirects to homepage
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
     res.redirect('/');
@@ -55,6 +52,7 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+// If signup is selected but user is already signed in, redirects to homepage
 router.get('/signup', (req, res) => {
   if (req.session.logged_in) {
     res.redirect('/');
@@ -64,6 +62,7 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+// Checks logged in status, then sends user to new post page
 router.get('/newPost', withAuth, (req, res) => {
 
   res.render('newPost', {
@@ -71,7 +70,8 @@ router.get('/newPost', withAuth, (req, res) => {
 });
 });
 
-router.get('/editPost/:id', async (req, res) => {
+// Receives post ID from dashboard, finds post in db and sends it to edit post view
+router.get('/editPost/:id', withAuth, async (req, res) => {
   try {
     // Retrieve the postId from the request parameters
     const id = req.params.id;
@@ -85,10 +85,7 @@ router.get('/editPost/:id', async (req, res) => {
       }]
     });
     
-    // If the post is found, send it as a JSON response
     if (postData) {
-      // console.log(postData);
-      // console.log(postData.dataValues.comments[0].dataValues);
       const post = {
         id: postData.dataValues.id,
         title: postData.dataValues.title,
@@ -97,17 +94,14 @@ router.get('/editPost/:id', async (req, res) => {
         body: postData.dataValues.body,
       }
       console.log(post);
-      // res.status(200).json(post);
      res.render('editPost', {
         post,
         logged_in: req.session.logged_in,
     }) 
     } else {
-      // If the post is not found, send a 404 Not Found status
       res.status(404).json({ message: 'Post not found' });
     }
   } catch (error) {
-    // If an error occurs during the database query, send a 500 Internal Server Error status
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
   }

@@ -1,15 +1,14 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 const { formatDate } = require('../utils/helpers');
+const withAuth = require('../utils/auth');
 
-// const withAuth = require('../utils/auth');
-
+// Receives request from homepage for one post, finds post in db by ID, sends that post's data to post page
 router.get('/:id', async (req, res) => {
     try {
-        // Retrieve the postId from the request parameters
         const id = req.params.id;
         
-        // Query the database to find the post by its ID using the Post model
+        // Queries the database to find the post by its ID using the Post model
         const postData = await Post.findByPk(id, {
           include: [
             {
@@ -25,10 +24,8 @@ router.get('/:id', async (req, res) => {
           }]
         });
         
-        // If the post is found, send it as a JSON response
+        // If the post is found, sends it as a JSON response
         if (postData) {
-          // console.log(postData);
-          // console.log(postData.dataValues.comments[0].dataValues);
           const post = {
             id: postData.dataValues.id,
             title: postData.dataValues.title,
@@ -42,29 +39,24 @@ router.get('/:id', async (req, res) => {
               username: comment.dataValues.user.dataValues.username
           }))
           }
-          // res.status(200).json(post);
          res.render('post', {
             post,
             logged_in: req.session.logged_in,
         }) 
         } else {
-          // If the post is not found, send a 404 Not Found status
+          // If the post is not found, sends a 404 Not Found status
           res.status(404).json({ message: 'Post not found' });
         }
       } catch (error) {
-        // If an error occurs during the database query, send a 500 Internal Server Error status
+        // If an error occurs during the database query, sends a 500 Internal Server Error status
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
       }
   });
 
-  router.post('/comment', async (req, res) => {
+  // Receives data for new comment, stores it in db, connected to a specific user and post
+  router.post('/comment', withAuth, async (req, res) => {
     try {
-        // console.log(req.body);
-        // console.log(req.session.user_id);
-        // const { commentText, username, date } = req.body;
-
-        // Save the comment to the database
         const newComment = await Comment.create({
             body: req.body.commentText,
             date: req.body.date,
@@ -81,12 +73,3 @@ router.get('/:id', async (req, res) => {
 });
 
 module.exports = router;
-
-// comment {
-//   dataValues: {
-//     id: 1,
-//     body: 'great game, thanks for the recommend',
-//     date: 2024-05-23T22:18:02.350Z,
-//     userId: 4,
-//     postId: 3
-//   },

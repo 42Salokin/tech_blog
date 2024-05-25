@@ -1,3 +1,4 @@
+// Sends login data to controller to check against db and log user in, loads homepage
 const loginFormHandler = async (event) => {
     event.preventDefault();
   

@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { User, Post } = require('../../models');
+const { Post } = require('../../models');
 
+// Receives data from dashboard for a new post and adds it to db
 router.post('/newPost', async (req, res) => {
     console.log(req.body)
     console.log(req.session.user_id);
@@ -13,10 +14,6 @@ router.post('/newPost', async (req, res) => {
             body: req.body.content
         });
       console.log(newPost)
-    //   req.session.save(() => {
-    //     req.session.user_id = signupuser.id;
-    //     req.session.logged_in = true;
-    //   });
         res.status(200).json(newPost)
     } catch (err) {
       console.error(err)
@@ -24,6 +21,7 @@ router.post('/newPost', async (req, res) => {
     }
   });
 
+  // Receives data from post edit, finds post by ID, updates post in db 
   router.put('/:postId', async (req, res) => {
     const { postId } = req.params;
     const { title, content } = req.body;
@@ -44,9 +42,6 @@ router.post('/newPost', async (req, res) => {
       console.error('Error updating post:', error);
       res.status(500).json({ message: 'Failed to update post', error: error.message });
     }
-  });
-  
-
-  
+  });  
 
   module.exports = router;

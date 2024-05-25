@@ -1,3 +1,4 @@
+// Sends new post data to controller to store in db, loads dashboard
 const newPostHandler = async (event) => {
     event.preventDefault();
   
