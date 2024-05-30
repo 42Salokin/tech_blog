@@ -6,7 +6,7 @@
 
   Users can sign up, login, and logout. All current posts are displayed on homepage. Clicking on any post displays just that post with any comments that have been left, and allows user to leave a comment. After logging in, user can go to dashboard to view their posts, create a new post, or edit/delete an existing post.
 
-  Live site deployed to Render at:  
+  Live site deployed to Render at:  https://tech-blog-p0i5.onrender.com
 
   ## Table of Contents
 
